@@ -18,7 +18,7 @@
   body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--dark);font-size:13px;line-height:1.4;-webkit-text-size-adjust:100%}
   .hdr{background:linear-gradient(135deg,#0E1419 0%,#1A2530 50%,#0E1419 100%);padding:14px 18px;display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--red);position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
   .hdr::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(204,30,43,0.6) 50%,transparent 100%)}
-  .hdr-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:#fff;line-height:1;letter-spacing:-0.5px;background:linear-gradient(180deg,#fff 0%,#B0BEC5 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:pointer;user-select:none}
+  .hdr-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:#fff;line-height:1;letter-spacing:-0.5px;background:linear-gradient(180deg,#fff 0%,#B0BEC5 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:pointer;user-select:none;text-decoration:none;-webkit-tap-highlight-color:transparent}
   .hdr-logo::after{content:'';display:inline-block;width:6px;height:6px;background:var(--red);border-radius:50%;margin-left:4px;vertical-align:top;margin-top:6px;box-shadow:0 0 8px rgba(204,30,43,0.6)}
   .hdr-sep{width:1px;height:42px;background:linear-gradient(180deg,transparent 0%,#3A4A5C 50%,transparent 100%);flex-shrink:0}
   .hdr-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.8px;color:#fff;line-height:1.2}
@@ -77,7 +77,7 @@
 </head>
 <body>
 <div class="hdr">
-  <div class="hdr-logo" onclick="location.reload(true)" title="Ladda om sidan">DAHL</div>
+  <a class="hdr-logo" href="." title="Ladda om sidan">DAHL</a>
   <div class="hdr-sep"></div>
   <div>
     <div class="hdr-title">VVS Lathund – Renovering</div>
