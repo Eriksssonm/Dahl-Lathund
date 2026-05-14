@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DAHL Lathund">
+<meta name="theme-color" content="#CC1E2B">
+<link rel="manifest" href="manifest.json">
 <title>DAHL Lathund – VVS Renovering</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;900&family=Barlow:wght@400;500;600&display=swap');
@@ -54,7 +60,9 @@
   tbody td{padding:8px 10px;vertical-align:middle}
   tr.grp td{background:linear-gradient(90deg,#1B3A52 0%,#2C5273 100%);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1.2px;color:#FFD54F;padding:10px 14px;border-left:5px solid #FFC107;border-top:2px solid #0D2336;border-bottom:1px solid #0D2336;text-shadow:0 1px 2px rgba(0,0,0,0.4)}
   tr.grp:hover,tr.grp:active{background:linear-gradient(90deg,#1B3A52 0%,#2C5273 100%)}
-  .nr{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;color:var(--dark);white-space:nowrap}
+  .nr{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;color:var(--dark);white-space:nowrap;cursor:pointer;user-select:all}
+  .nr:active{background:var(--red);color:#fff;border-radius:3px}
+  .nr-copied{background:#2E7D32!important;color:#fff!important;border-radius:3px;transition:background 0.3s}
   .nm{font-weight:600;font-size:12px;color:var(--dark)}
   .ds{font-size:11px;color:var(--muted);line-height:1.3}
   .chip{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;padding:2px 7px;border-radius:3px;white-space:nowrap}
@@ -203,6 +211,8 @@
     <tr class="grp"><td colspan="4">↗ Böjar Faluplast vit PP – dim 40mm</td></tr>
     <tr data-d="falu" data-s="faluplast vinkel böj 40mm 45° muff slätända vit PP avlopp"><td class="nr">2910343</td><td><div class="nm">VINKEL 40mm×90° (muff×slätända)</div><div class="ds">Faluplast PP, vit. Typgodkänd.</div></td><td><span class="chip pfalu">40mm</span> <span class="tch">90°</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/vinkel-40-mm-x-90-muff-x-slatanda-vit-faluplast-2910343" target="_blank">Dahl</a></td></tr>
     <tr class="grp"><td colspan="4">↗ Böjar Faluplast vit PP – dim 50mm</td></tr>
+    <tr data-d="falu" data-s="faluplast vinkel böj 32mm 30° muff slätända vit PP avlopp"><td class="nr">2910363</td><td><div class="nm">VINKEL 32mm×30° (muff×slätända)</div><div class="ds">Faluplast PP, vit. Typgodkänd.</div></td><td><span class="chip pfalu">32mm</span> <span class="tch">30°</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/vinkel-32-mm-x-30-muff-x-slatanda-vit-faluplast-2910363" target="_blank">Dahl</a></td></tr>
+    <tr data-d="falu" data-s="faluplast vinkel böj 40mm 30° muff slätända vit PP avlopp"><td class="nr">2910364</td><td><div class="nm">VINKEL 40mm×30° (muff×slätända)</div><div class="ds">Faluplast PP, vit. Typgodkänd.</div></td><td><span class="chip pfalu">40mm</span> <span class="tch">30°</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/vinkel-40-mm-x-30-muff-x-slatanda-vit-faluplast-2910364" target="_blank">Dahl</a></td></tr>
     <tr data-d="falu" data-s="faluplast vinkel böj 50mm 30° muff slätända vit PP avlopp"><td class="nr">2910365</td><td><div class="nm">VINKEL 50mm×30° (muff×slätända)</div><div class="ds">Faluplast PP, vit. Typgodkänd.</div></td><td><span class="chip pfalu">50mm</span> <span class="tch">30°</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/vinkel-50-mm-x-30-muff-x-slatanda-vit-faluplast-2910365" target="_blank">Dahl</a></td></tr>
     <tr data-d="falu" data-s="faluplast vinkel böj 50mm 45° muff slätända vit PP avlopp"><td class="nr">2316168</td><td><div class="nm">VINKEL 50mm×45° (muff×slätända)</div><div class="ds">Faluplast PP, vit. Typgodkänd.</div></td><td><span class="chip pfalu">50mm</span> <span class="tch">45°</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/vinkel-50-mm-x-45-muff-x-slatanda-vit-faluplast-2316168" target="_blank">Dahl</a></td></tr>
     <tr data-d="falu" data-s="faluplast vinkel böj 50mm 90° muff slätända vit PP avlopp"><td class="nr">2316169</td><td><div class="nm">VINKEL 50mm×90° (muff×slätända)</div><div class="ds">Faluplast PP, vit. Typgodkänd.</div></td><td><span class="chip pfalu">50mm</span> <span class="tch">90°</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/vinkel-50-mm-x-90-muff-x-slatanda-vit-faluplast-2316169" target="_blank">Dahl</a></td></tr>
@@ -426,6 +436,26 @@ function s(q){
     document.querySelectorAll('.ftab').forEach(t=>t.className='ftab');
     document.querySelector('.ftab').className='ftab a-all';
   }
+}
+// Kopiera art.nr vid klick
+document.querySelectorAll('td.nr').forEach(td => {
+  td.addEventListener('click', function() {
+    const nr = this.textContent.trim();
+    navigator.clipboard.writeText(nr).then(() => {
+      this.classList.add('nr-copied');
+      const orig = this.textContent;
+      this.textContent = '✓ ' + nr;
+      setTimeout(() => {
+        this.textContent = orig;
+        this.classList.remove('nr-copied');
+      }, 1200);
+    });
+  });
+});
+
+// Service Worker – offline-stöd
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
 }
 </script>
 </body>

@@ -1,0 +1,17 @@
+{
+  "name": "DAHL VVS Lathund",
+  "short_name": "DAHL Lathund",
+  "description": "VVS-lathund med verifierade artikelnummer från dahl.se",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#1A1A1A",
+  "theme_color": "#CC1E2B",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23CC1E2B'/><text x='96' y='140' font-family='Arial Black' font-size='100' font-weight='900' fill='white' text-anchor='middle'>D</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
