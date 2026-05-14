@@ -16,7 +16,7 @@
     --red:#CC1E2B;--dark:#1A1A1A;--steel:#3A4A5C;--sl:#5B7189;
     --c50:#E8F4FD;--h50:#2980B9;--c75:#FFF3E0;--h75:#E67E22;
     --c110:#F3E8FF;--h110:#7B2D8B;--cfalu:#FFF0F0;--hfalu:#B22222;
-    --cva:#E8F5E9;--hva:#2E7D32;--cupo:#E3F2FD;--hupo:#0D47A1;
+    --cva:#E8F5E9;--hva:#2E7D32;--cupo:#E3F2FD;--hupo:#0D47A1;--cskydd:#FFF3E0;--hskydd:#E65100;
     --cku:#FFF8E1;--hku:#F57F17;--ccu:#FCE4EC;--hcu:#AD1457;
     --bg:#F2F4F7;--card:#fff;--border:#DEE2E8;--muted:#6B7280;
   }
@@ -36,7 +36,7 @@
   .fbar::-webkit-scrollbar{display:none}
   .ftab{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:.5px;text-transform:uppercase;padding:10px 12px;cursor:pointer;color:#B0BEC5;border-bottom:3px solid transparent;white-space:nowrap;user-select:none;flex-shrink:0}
   .ftab:hover{color:#fff}
-  .ftab.a-all,.ftab.a-50,.ftab.a-75,.ftab.a-110,.ftab.a-falu,.ftab.a-ku,.ftab.a-cu,.ftab.a-upo,.ftab.a-ov{color:#fff!important;border-bottom-color:var(--red)!important}
+  .ftab.a-all,.ftab.a-50,.ftab.a-75,.ftab.a-110,.ftab.a-falu,.ftab.a-ku,.ftab.a-cu,.ftab.a-upo,.ftab.a-ov,.ftab.a-skydd{color:#fff!important;border-bottom-color:var(--red)!important}
   .sbar{background:#2E3D4E;padding:8px 12px}
   .sinput{width:100%;background:#fff;border:2px solid #5B7189;border-radius:6px;padding:10px 14px;color:#1A1A1A;font-size:14px;font-family:'Barlow',sans-serif;outline:none;box-shadow:0 1px 3px rgba(0,0,0,0.2);font-weight:500}
   .sinput::placeholder{color:#6B7280;font-weight:400}
@@ -47,7 +47,7 @@
   .section{margin-bottom:20px}
   .sec-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid var(--border)}
   .sec-badge{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;padding:3px 10px;border-radius:4px;color:#fff;line-height:1;white-space:nowrap}
-  .b50{background:var(--h50)}.b75{background:var(--h75)}.b110{background:var(--h110)}.bfalu{background:var(--hfalu)}.bku{background:var(--hku)}.bcu{background:var(--hcu)}.bupo{background:var(--hupo)}
+  .b50{background:var(--h50)}.b75{background:var(--h75)}.b110{background:var(--h110)}.bfalu{background:var(--hfalu)}.bku{background:var(--hku)}.bcu{background:var(--hcu)}.bupo{background:var(--hupo)}.bskydd{background:var(--hskydd)}
   .sec-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.5px;color:var(--steel)}
   .sec-sub{font-size:10px;color:var(--muted);margin-left:auto}
   .tbl-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
@@ -73,6 +73,7 @@
   .pku{background:var(--cku);color:var(--hku);border:1px solid #FFE082}
   .pcu{background:var(--ccu);color:var(--hcu);border:1px solid #F48FB1}
   .pupo{background:var(--cupo);color:var(--hupo);border:1px solid #90CAF9}
+  .pskydd{background:var(--cskydd);color:var(--hskydd);border:1px solid #FFCC80}
   .pror{background:#E0EEF9;color:#1A5FA8;border:1px solid #A9CBE8}
   .tch{display:inline-block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;padding:2px 6px;border-radius:8px;background:#EEF2F7;color:var(--sl);white-space:nowrap}
   .lnk{display:inline-block;font-size:10px;font-weight:700;color:var(--red);text-decoration:none;padding:4px 8px;border:1px solid var(--red);border-radius:4px;white-space:nowrap;min-width:44px;text-align:center}
@@ -106,6 +107,7 @@
   <div class="ftab" onclick="f('cu',this)">Cu-rör</div>
   <div class="ftab" onclick="f('upo',this)">Uponor RiR</div>
   <div class="ftab" onclick="f('ov',this)">Övrigt</div>
+  <div class="ftab" onclick="f('skydd',this)">Skydd & Larm</div>
 </div>
 <div class="sbar">
   <input class="sinput" type="text" placeholder="🔍 Sök artikelnummer, namn, dimension..." oninput="s(this.value)">
@@ -389,6 +391,32 @@
     </tbody></table></div>
 </div>
 </div><!-- /main -->
+
+<div class="section" id="sskydd">
+  <div class="sec-head"><span class="sec-badge bskydd">Skydd & Larm</span><span class="sec-title">Tollco & LK – Tätning · Golvskydd · Vattenlarm · Läckagebrytare</span><span class="sec-sub">Tollco · LK Systems · Säker vatten</span></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Art.nr</th><th>Namn</th><th>Dim.</th><th>↗</th></tr></thead>
+    <tbody>
+    <tr class="grp"><td colspan="4">🛡️ Tätningar – Tollco diskbänk &amp; genomföring</td></tr>
+    <tr data-d="skydd" data-s="tätningsset flex stosar tollco diskbänksskåp genomföring avlopp tappvatten PP"><td class="nr">8093000</td><td><div class="nm">TÄTNINGSSET MED FLEX STOSAR</div><div class="ds">Tollco. PP grå. Avloppsrör Ø45–88mm, tappvatten Ø10–27mm. Nyinstallation diskbänksskåp.</div></td><td><span class="chip pskydd">Tätning</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/tatningsset-med-flex-stosar-tollco-8093000" target="_blank">Dahl</a></td></tr>
+    <tr data-d="skydd" data-s="tätningssats lexsol tollco 3 kit band massa diskmaskin köksavlopp"><td class="nr">3829933</td><td><div class="nm">TÄTNINGSSATS 3 LEXSOL (kit)</div><div class="ds">Tollco. 3 typer: enkelhäftande band, dubbelhäftande band + formbar massa. Tätar rörgenomföringar, skarvar, skruvhål.</div></td><td><span class="chip pskydd">Tätning</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/tatningssats-3-lexsol-590030-tollco-3829933" target="_blank">Dahl</a></td></tr>
+    <tr class="grp"><td colspan="4">🪣 Golvskydd – Tollco AquaTeam+ (uppsamlingstråg köksskåp)</td></tr>
+    <tr data-d="skydd" data-s="tollco aquateam golvskydd g40 396mm köksskåp uppsamlingstråg läckage"><td class="nr">8080771</td><td><div class="nm">AQUATEAM+ G40 GOLVSKYDD 396×415mm</div><div class="ds">Tollco. PP transparent. Passar alla köksskåp (41,5cm djup). Kopplingsbar. Typgodkänd.</div></td><td><span class="chip pskydd">40cm</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/aquateam-g40-golvskydd-396x415mm-tollco-8080771" target="_blank">Dahl</a></td></tr>
+    <tr data-d="skydd" data-s="tollco aquateam golvskydd g60 596mm köksskåp uppsamlingstråg läckage"><td class="nr">8080772</td><td><div class="nm">AQUATEAM+ G60 GOLVSKYDD 596×415mm</div><div class="ds">Tollco. PP transparent. Kopplingsbar. Typgodkänd.</div></td><td><span class="chip pskydd">60cm</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/aquateam-g60-golvskydd-596x415mm-tollco-8080772" target="_blank">Dahl</a></td></tr>
+    <tr data-d="skydd" data-s="tollco aquateam golvskydd g80 796mm köksskåp uppsamlingstråg läckage"><td class="nr">8080773</td><td><div class="nm">AQUATEAM+ G80 GOLVSKYDD 796×415mm</div><div class="ds">Tollco. PP transparent. Kopplingsbar. Typgodkänd.</div></td><td><span class="chip pskydd">80cm</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/aquateam-g80-golvskydd-796x415mm-tollco-8080773" target="_blank">Dahl</a></td></tr>
+    <tr class="grp"><td colspan="4">💧 Vattenlarm – Tollco</td></tr>
+    <tr data-d="skydd" data-s="dropp-stop 700 vattenlarm tollco nätanslutet sensor läckage pipsignal"><td class="nr">5216610</td><td><div class="nm">DROPP-STOP 700 VATTENLARM</div><div class="ds">Tollco. Nätanslutet. Larmar vid läcka. Inkl. sensorer. Kan kompletteras med motorventiler.</div></td><td><span class="chip pskydd">Larm</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/dropp-stop-700-konsument-tollco-5216610" target="_blank">Dahl</a></td></tr>
+    <tr data-d="skydd" data-s="vattenlarm kyl frys tollco batteridriven sensor läckage"><td class="nr">5214002</td><td><div class="nm">VATTENLARM KYL/FRYS</div><div class="ds">Tollco. Batteridriven. Inkl. 2 sensorer (3m kabel). Placeras vid kyl/frys.</div></td><td><span class="chip pskydd">Larm</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/vattenlarm-kyl-frys-tollco-5214002" target="_blank">Dahl</a></td></tr>
+    <tr class="grp"><td colspan="4">🚰 Läckagebrytare WaterFuse – Tollco (stänger av vattnet)</td></tr>
+    <tr data-d="skydd" data-s="läckagebrytare waterfuse plugin dn15 tollco motorventil 1-väg vattenavstängning"><td class="nr">5216566</td><td><div class="nm">WATERFUSE PLUG-IN DN15 (1 ventil)</div><div class="ds">Tollco. 230V. Motorventil DN15. Stänger av + larmar. Bryter även ström till apparat.</div></td><td><span class="chip pskydd">DN15</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/lackagebrytare-waterfuse-plugin-dn15-tollco-5216566" target="_blank">Dahl</a></td></tr>
+    <tr data-d="skydd" data-s="läckagebrytare waterfuse plugin dn15 2 ventiler tollco motorventil vattenavstängning"><td class="nr">5216567</td><td><div class="nm">WATERFUSE PLUG-IN DN15 (2 ventiler)</div><div class="ds">Tollco. 230V. 2×motorventil DN15. Stänger av + larmar.</div></td><td><span class="chip pskydd">DN15×2</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/lackagebrytare-waterfuse-plugin-dn15x2-tollco-5216567" target="_blank">Dahl</a></td></tr>
+    <tr data-d="skydd" data-s="läckagebrytare waterfuse plugin dn20 2 ventiler tollco motorventil vattenavstängning"><td class="nr">5216569</td><td><div class="nm">WATERFUSE PLUG-IN DN20 (2 ventiler)</div><div class="ds">Tollco. 230V. 2×motorventil DN20. Stänger av + larmar.</div></td><td><span class="chip pskydd">DN20×2</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/lackagebrytare-waterfuse-plugin-dn20x2-tollco-5216569" target="_blank">Dahl</a></td></tr>
+    <tr class="grp"><td colspan="4">📡 LK CubicDetector – WiFi-larm (larmar mobilen)</td></tr>
+    <tr data-d="skydd" data-s="läckagedetektor cubicdetector lk systems wifi vattenlarm mobil smart"><td class="nr">1882688</td><td><div class="nm">LK CUBICDETECTOR (WiFi-larm)</div><div class="ds">LK Systems. WiFi. Larmar mobilen vid läcka. Även temp + luftfuktighet. Stand-alone m. ljudsignal. Passar CubicSecure.</div></td><td><span class="chip pskydd">WiFi</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/lackagedetektor-cubicdetector-vit-lk-1882688" target="_blank">Dahl</a></td></tr>
+    <tr data-d="skydd" data-s="lk cubicsensor extern fuktsensor cubicdetector kabel trånga utrymmen läckage"><td class="nr">1882687</td><td><div class="nm">LK CUBICSENSOR (extern sensor)</div><div class="ds">LK Systems. Extern fuktsensor, 1,2m kabel. Ansluts till CubicDetector (1882688). För trånga utrymmen.</div></td><td><span class="chip pskydd">Sensor</span></td><td><a class="lnk" href="https://www.dahl.se/produkt/lackagedetektor-cubicdetector-till-cubicdetector-fristaende-vit-lk-1882687" target="_blank">Dahl</a></td></tr>
+    </tbody></table></div>
+</div>
+
 <div class="footer">
   <span>📞 DAHL <strong>020-55 99 99</strong> · dahl.se</span>
 </div>
