@@ -586,6 +586,7 @@
 </div>
 <script>
 var _dMap={'50':'s50','75':'s75','110':'s110','falu':'sfalu','ku':'sku','cu':'scu','upo':'supo','skydd':'sskydd','ov':'sov'};
+var _activeDim='all';
 var _ids=['s50','s75','s110','sfalu','sku','scu','supo','sskydd','sov'];
 
 // Synonymtabell – expanderar sökord till matchande termer
@@ -631,6 +632,7 @@ function f(dim,el){
   // Fix 6: återställ sökrutan när man byter flik
   var inp=document.querySelector('.sinput');
   if(inp && inp.value){inp.value='';s('');}
+  _activeDim=dim;
   document.querySelectorAll('.ftab').forEach(t=>{t.className='ftab';t.setAttribute('aria-pressed','false');});
   el.className='ftab a-'+dim;el.setAttribute('aria-pressed','true');
   _ids.forEach(function(id){
@@ -649,9 +651,13 @@ function s(q){
   var tokens=expanded.split(/\s+/).filter(Boolean);
 
   document.querySelectorAll('tr[data-d]').forEach(function(r){
-    if(!q){r.classList.remove('hidden');return;}
+    if(!q){
+      r.classList.toggle('hidden',_activeDim!=='all'&&r.dataset.d!==_activeDim);
+      return;
+    }
+    var dimMatch=(_activeDim==='all'||r.dataset.d===_activeDim);
     var haystack=(r.dataset.s+' '+r.textContent).toLowerCase();
-    var match=tokens.every(function(tok){return haystack.includes(tok);});
+    var match=dimMatch&&tokens.every(function(tok){return haystack.includes(tok);});
     r.classList.toggle('hidden',!match);
   });
 
@@ -659,7 +665,7 @@ function s(q){
     var sec=document.getElementById(id);
     if(!sec) return;
     if(!q){
-      sec.style.display='';
+      sec.style.display=(_activeDim==='all'||_dMap[_activeDim]===id)?'':'none';
       sec.querySelectorAll('tr.grp').forEach(function(g){g.classList.remove('hidden');});
       return;
     }
@@ -675,7 +681,7 @@ function s(q){
     });
   });
 
-  if(!q){
+  if(!q && _activeDim==='all'){
     document.querySelectorAll('.ftab').forEach(t=>{t.className='ftab';t.setAttribute('aria-pressed','false');});
     const allTab=document.querySelector('.ftab');allTab.className='ftab a-all';allTab.setAttribute('aria-pressed','true');
   }
