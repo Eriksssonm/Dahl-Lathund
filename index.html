@@ -60,9 +60,15 @@
   tbody td{padding:8px 10px;vertical-align:middle}
   tr.grp td{background:linear-gradient(90deg,#1B3A52 0%,#2C5273 100%);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1.2px;color:#FFD54F;padding:10px 14px;border-left:5px solid #FFC107;border-top:2px solid #0D2336;border-bottom:1px solid #0D2336;text-shadow:0 1px 2px rgba(0,0,0,0.4)}
   tr.grp:hover,tr.grp:active{background:linear-gradient(90deg,#1B3A52 0%,#2C5273 100%)}
-  .nr{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;color:var(--dark);white-space:nowrap;cursor:pointer;user-select:all}
+  .nr{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;color:var(--dark);white-space:nowrap;cursor:pointer;user-select:all;position:relative;padding-right:22px!important}
+.nr::after{content:'⎘';position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:11px;opacity:0.25;font-family:sans-serif;transition:opacity 0.15s}
+.nr:hover::after{opacity:0.7}
+.nr:active{transform:scale(0.96)}
   .nr:active{background:var(--red);color:#fff;border-radius:3px}
   .nr-copied{background:#2E7D32!important;color:#fff!important;border-radius:3px;transition:background 0.3s}
+#btt{position:fixed;bottom:20px;right:16px;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:20px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.2s;display:flex;align-items:center;justify-content:center;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+#btt.vis{opacity:1;pointer-events:auto}
+#btt:active{transform:scale(0.92)}
   .nm{font-weight:600;font-size:12px;color:var(--dark)}
   .ds{font-size:11px;color:var(--muted);line-height:1.3}
   .chip{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;padding:2px 7px;border-radius:3px;white-space:nowrap}
@@ -447,73 +453,119 @@
 <script>
 var _dMap={'50':'s50','75':'s75','110':'s110','falu':'sfalu','ku':'sku','cu':'scu','upo':'supo','skydd':'sskydd','ov':'sov'};
 var _ids=['s50','s75','s110','sfalu','sku','scu','supo','sskydd','sov'];
+
+// Synonymtabell – expanderar sökord till matchande termer
+var _syn={
+  'boj':'böj','bok':'böj','vinkel':'böj',
+  'gren':'grenrör','t-ror':'grenrör','t-rör':'grenrör',
+  '88':'88,5','90':'88,5',
+  'slatanda':'slätända','muff x':'muff×','mx':'muff×',
+  'forminskning':'förminskning','reduk':'förminskning',
+  'koppling':'koppling kopplings',
+  'ror':'rör','rör ':'rör',
+  'skjut':'skjutmuff','dubbel':'dubbelmuff',
+  'rens':'rensrör','rensning':'rensrör',
+  'ku':'kulventil','ventil':'kulventil',
+  'ku-ventil':'kulventil',
+  'pex':'combi pipe uponor',
+  'gummi':'gumminippel',
+  'nippel':'sexkantnippel nippel gumminippel',
+  'larm':'vattenlarm läckage',
+  'tec':'tec7',
+  'klamring':'klämring','klam':'klämring'
+};
+
+function _expand(q){
+  var r=q;
+  Object.keys(_syn).forEach(function(k){if(r.includes(k))r=r+' '+_syn[k];});
+  return r;
+}
+
 function f(dim,el){
+  // Fix 6: återställ sökrutan när man byter flik
+  var inp=document.querySelector('.sinput');
+  if(inp && inp.value){inp.value='';s('');}
   document.querySelectorAll('.ftab').forEach(t=>t.className='ftab');
   el.className='ftab a-'+dim;
   _ids.forEach(function(id){
-    var s=document.getElementById(id);
-    if(s) s.style.display=(dim==='all'||_dMap[dim]===id)?'':'none';
+    var sec=document.getElementById(id);
+    if(sec) sec.style.display=(dim==='all'||_dMap[dim]===id)?'':'none';
   });
   document.querySelectorAll('tr[data-d]').forEach(function(r){
     r.classList.toggle('hidden',dim!=='all'&&r.dataset.d!==dim);
   });
 }
+
 function s(q){
+  // Fix 1: tokeniserad sökning – alla ord måste matcha, med synonym-expansion
   q=q.toLowerCase().trim();
-  // Visa/dölj varje produktrad baserat på matchning
+  var expanded=_expand(q);
+  var tokens=expanded.split(/\s+/).filter(Boolean);
+
   document.querySelectorAll('tr[data-d]').forEach(function(r){
     if(!q){r.classList.remove('hidden');return;}
-    var t=(r.dataset.s+' '+r.textContent).toLowerCase();
-    r.classList.toggle('hidden',!t.includes(q));
+    var haystack=(r.dataset.s+' '+r.textContent).toLowerCase();
+    var match=tokens.every(function(tok){return haystack.includes(tok);});
+    r.classList.toggle('hidden',!match);
   });
-  // För varje sektion: räkna synliga produktrader. Dölj hela sektionen om 0.
+
   _ids.forEach(function(id){
     var sec=document.getElementById(id);
     if(!sec) return;
     if(!q){
       sec.style.display='';
-      // Visa alla grupp-rubriker igen
       sec.querySelectorAll('tr.grp').forEach(function(g){g.classList.remove('hidden');});
       return;
     }
     var visibleRows=sec.querySelectorAll('tr[data-d]:not(.hidden)');
     sec.style.display=visibleRows.length>0?'':'none';
-    // Dölj grupp-rubriker som inte har några synliga produkter under sig
     sec.querySelectorAll('tr.grp').forEach(function(g){
       var nxt=g.nextElementSibling;var hasVisible=false;
-      while(nxt && !nxt.classList.contains('grp')){
-        if(nxt.dataset.d && !nxt.classList.contains('hidden')){hasVisible=true;break;}
+      while(nxt&&!nxt.classList.contains('grp')){
+        if(nxt.dataset.d&&!nxt.classList.contains('hidden')){hasVisible=true;break;}
         nxt=nxt.nextElementSibling;
       }
       g.classList.toggle('hidden',!hasVisible);
     });
   });
-  // När sökrutan är tom: återställ till "Alla"-fliken
+
   if(!q){
     document.querySelectorAll('.ftab').forEach(t=>t.className='ftab');
     document.querySelector('.ftab').className='ftab a-all';
   }
 }
-// Kopiera art.nr vid klick
+
+// Fix 3: Kopiera art.nr vid klick – med tydlig feedback
 document.querySelectorAll('td.nr').forEach(td => {
   td.addEventListener('click', function() {
-    const nr = this.textContent.trim();
+    const nr = this.textContent.replace('⎘','').trim();
     navigator.clipboard.writeText(nr).then(() => {
       this.classList.add('nr-copied');
       const orig = this.textContent;
-      this.textContent = '✓ ' + nr;
+      this.textContent = '✓ kopierat';
       setTimeout(() => {
         this.textContent = orig;
         this.classList.remove('nr-copied');
-      }, 1200);
+      }, 1400);
+    }).catch(()=>{
+      // Fallback om clipboard ej tillgänglig
+      const sel=window.getSelection(),range=document.createRange();
+      range.selectNodeContents(this);sel.removeAllRanges();sel.addRange(range);
     });
   });
 });
 
+// Fix 10: Back-to-top – visa knapp efter 300px scroll
+window.addEventListener('scroll',function(){
+  var btn=document.getElementById('btt');
+  if(btn) btn.classList.toggle('vis',window.scrollY>300);
+},{passive:true});
+
 // Service Worker – offline-stöd
-if('serviceWorker' in navigator) {
+if('serviceWorker' in navigator){
   navigator.serviceWorker.register('./sw.js');
 }
 </script>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Tillbaka till toppen" aria-label="Tillbaka till toppen">↑</button>
 </body>
 </html>
