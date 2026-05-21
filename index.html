@@ -610,16 +610,15 @@ var _syn={
 };
 
 function _expand(q){
-  // Expandera token för token – ersätt stavfel/förkortning med korrekt term
+  // Ersätt varje token med synonym om den matchar – originalet tas bort
   var tokens=q.split(/\s+/).filter(Boolean);
   var expanded=[];
   tokens.forEach(function(tok){
     var replaced=false;
     Object.keys(_syn).forEach(function(k){
-      if(tok===k||tok.startsWith(k)){
-        // Lägg till både original och synonym för bredast möjlig match
-        expanded.push(tok);
-        _syn[k].split(' ').forEach(function(s){if(s&&s!==tok)expanded.push(s);});
+      if(!replaced&&(tok===k||tok===k.replace(/[^a-zåäö]/g,''))){
+        // Ersätt med synonym-termerna (ta BORT originalet som inte finns i haystack)
+        _syn[k].split(' ').forEach(function(s){if(s)expanded.push(s);});
         replaced=true;
       }
     });
