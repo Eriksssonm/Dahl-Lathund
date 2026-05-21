@@ -648,52 +648,104 @@ function f(dim,el){
 }
 
 function s(q){
-  // Fix 1: tokeniserad sökning – alla ord måste matcha, med synonym-expansion
   q=q.toLowerCase().trim();
+
+  // Utan sökning: återgå till aktivt filter, dölj sökresultat
+  if(!q){
+    var wrap=document.getElementById('search-results-wrap');
+    if(wrap) wrap.style.display='none';
+    document.querySelectorAll('tr[data-d]').forEach(function(r){
+      r.classList.toggle('hidden',_activeDim!=='all'&&r.dataset.d!==_activeDim);
+    });
+    _ids.forEach(function(id){
+      var sec=document.getElementById(id);
+      if(!sec) return;
+      sec.style.display=(_activeDim==='all'||_dMap[_activeDim]===id)?'':'none';
+      sec.querySelectorAll('tr.grp').forEach(function(g){g.classList.remove('hidden');});
+    });
+    if(_activeDim==='all'){
+      document.querySelectorAll('.ftab').forEach(t=>{t.className='ftab';t.setAttribute('aria-pressed','false');});
+      var allTab=document.querySelector('.ftab');allTab.className='ftab a-all';allTab.setAttribute('aria-pressed','true');
+    }
+    var sr=document.getElementById('search-status');
+    if(sr) sr.textContent='';
+    return;
+  }
+
   var expanded=_expand(q);
   var tokens=expanded.split(/\s+/).filter(Boolean);
 
+  // Poängsätt varje rad – filter ignoreras vid sökning
+  var scored=[];
   document.querySelectorAll('tr[data-d]').forEach(function(r){
-    if(!q){
-      r.classList.toggle('hidden',_activeDim!=='all'&&r.dataset.d!==_activeDim);
-      return;
+    var nm=(r.querySelector('.nm')||{textContent:''}).textContent.toLowerCase();
+    var ds=(r.dataset.s||'').toLowerCase();
+    var full=ds+' '+r.textContent.toLowerCase();
+    if(!tokens.every(function(tok){return full.includes(tok);})) return;
+    var sc=0;
+    tokens.forEach(function(tok){
+      if(nm===tok||nm===tok+'s') sc+=100;
+      else if(nm.startsWith(tok+' ')||nm.startsWith(tok+'×')||nm.startsWith(tok+'mm')) sc+=60;
+      else if(nm.includes(tok)) sc+=30;
+      else if(ds.includes(tok)) sc+=10;
+    });
+    scored.push({el:r,score:sc});
+  });
+  scored.sort(function(a,b){return b.score-a.score;});
+
+  // Skapa/hämta sökresultats-container
+  var wrap=document.getElementById('search-results-wrap');
+  if(!wrap){
+    wrap=document.createElement('div');
+    wrap.id='search-results-wrap';
+    wrap.innerHTML='<div class="tbl-wrap"><table><thead><tr>'
+      +'<th>Art.nr</th><th>Namn</th><th>Dim.</th><th>↗</th>'
+      +'</tr></thead><tbody id="search-results-body"></tbody></table></div>';
+    wrap.style.marginBottom='20px';
+    var mc=document.getElementById('main-content');
+    mc.insertBefore(wrap,mc.firstChild);
+  }
+
+  // Fyll med sorterade kloner och registrera click-events på nr-celler
+  var tbody=document.getElementById('search-results-body');
+  tbody.innerHTML='';
+  scored.forEach(function(item){
+    var clone=item.el.cloneNode(true);
+    clone.classList.remove('hidden');
+    var nrCell=clone.querySelector('td.nr');
+    if(nrCell){
+      nrCell.addEventListener('click',function(){
+        var nr=this.textContent.replace('⎘','').trim();
+        var self=this;
+        navigator.clipboard.writeText(nr).then(function(){
+          self.classList.add('nr-copied');
+          var orig=self.textContent;
+          self.textContent='✓ kopierat';
+          setTimeout(function(){self.textContent=orig;self.classList.remove('nr-copied');},1400);
+        }).catch(function(){
+          var ta=document.createElement('textarea');
+          ta.value=nr;ta.style.cssText='position:fixed;top:-9999px;opacity:0';
+          document.body.appendChild(ta);ta.focus();ta.select();
+          try{document.execCommand('copy');}catch(e){}
+          document.body.removeChild(ta);
+          self.classList.add('nr-copied');
+          var orig2=self.textContent;self.textContent='✓ kopierat';
+          setTimeout(function(){self.textContent=orig2;self.classList.remove('nr-copied');},1400);
+        });
+      });
     }
-    var dimMatch=(_activeDim==='all'||r.dataset.d===_activeDim);
-    var haystack=(r.dataset.s+' '+r.textContent).toLowerCase();
-    var match=dimMatch&&tokens.every(function(tok){return haystack.includes(tok);});
-    r.classList.toggle('hidden',!match);
+    tbody.appendChild(clone);
   });
 
+  // Visa sökresultat, dölj sektionerna
+  wrap.style.display='';
   _ids.forEach(function(id){
     var sec=document.getElementById(id);
-    if(!sec) return;
-    if(!q){
-      sec.style.display=(_activeDim==='all'||_dMap[_activeDim]===id)?'':'none';
-      sec.querySelectorAll('tr.grp').forEach(function(g){g.classList.remove('hidden');});
-      return;
-    }
-    var visibleRows=sec.querySelectorAll('tr[data-d]:not(.hidden)');
-    sec.style.display=visibleRows.length>0?'':'none';
-    sec.querySelectorAll('tr.grp').forEach(function(g){
-      var nxt=g.nextElementSibling;var hasVisible=false;
-      while(nxt&&!nxt.classList.contains('grp')){
-        if(nxt.dataset.d&&!nxt.classList.contains('hidden')){hasVisible=true;break;}
-        nxt=nxt.nextElementSibling;
-      }
-      g.classList.toggle('hidden',!hasVisible);
-    });
+    if(sec) sec.style.display='none';
   });
 
-  if(!q && _activeDim==='all'){
-    document.querySelectorAll('.ftab').forEach(t=>{t.className='ftab';t.setAttribute('aria-pressed','false');});
-    const allTab=document.querySelector('.ftab');allTab.className='ftab a-all';allTab.setAttribute('aria-pressed','true');
-  }
-  // Uppdatera skärmläsar-status
-  const sr=document.getElementById('search-status');
-  if(sr){
-    const vis=document.querySelectorAll('tr[data-d]:not(.hidden)').length;
-    sr.textContent=q?vis+' artiklar hittade för "'+q+'"':'';
-  }
+  var sr=document.getElementById('search-status');
+  if(sr) sr.textContent=scored.length+' artiklar hittade';
 }
 
 // Fix 3: Kopiera art.nr vid klick – med tydlig feedback
