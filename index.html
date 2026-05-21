@@ -699,7 +699,7 @@ function s(q){
 
   // Fyll med sorterade kloner och registrera click-events på nr-celler
   var tbody=document.getElementById('search-results-body');
-  tbody.innerHTML='';
+  while(tbody.firstChild)tbody.removeChild(tbody.firstChild);
   scored.forEach(function(item){
     var clone=item.el.cloneNode(true);
     clone.setAttribute('data-clone','1');
