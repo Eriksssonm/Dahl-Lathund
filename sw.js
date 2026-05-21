@@ -1,6 +1,6 @@
 // Cache-version – UPPDATERAS AUTOMATISKT vid varje deploy via deploy-datum
 // Ändra versionssträngen nedan vid varje ny deploy för att tvinga uppdatering hos alla
-const CACHE = 'dahl-lathund-v20260521-1430';
+const CACHE = 'dahl-lathund-v20260521-1434';
 const FONT_CACHE = 'dahl-fonts-v1';
 
 const APP_FILES = [
