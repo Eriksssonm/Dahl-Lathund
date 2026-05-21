@@ -2,7 +2,7 @@
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -10,6 +10,7 @@
 <meta name="theme-color" content="#CC1E2B">
 <link rel="manifest" href="manifest.json">
 <title>DAHL Lathund – VVS Renovering</title>
+<meta name="description" content="VVS-lathund med verifierade artikelnummer från dahl.se – Wafix, Faluplast, Vatette, kopparrör, Uponor och mer. Offline-anpassad PWA för rörläggare.">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;900&family=Barlow:wght@400;500;600&display=swap');
   :root{
@@ -21,24 +22,24 @@
     --bg:#F2F4F7;--card:#fff;--border:#DEE2E8;--muted:#6B7280;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--dark);font-size:13px;line-height:1.4;-webkit-text-size-adjust:100%}
+  body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--dark);font-size:13px;line-height:1.4;-webkit-text-size-adjust:100%}
   .hdr{background:linear-gradient(135deg,#0E1419 0%,#1A2530 50%,#0E1419 100%);padding:14px 18px;display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--red);position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
   .hdr::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(204,30,43,0.6) 50%,transparent 100%)}
-  .hdr-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:#fff;line-height:1;letter-spacing:-0.5px;background:linear-gradient(180deg,#fff 0%,#B0BEC5 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:pointer;user-select:none;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  .hdr-logo{font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:900;font-size:32px;color:#fff;line-height:1;letter-spacing:-0.5px;background:linear-gradient(180deg,#fff 0%,#B0BEC5 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:pointer;user-select:none;text-decoration:none;-webkit-tap-highlight-color:transparent}
   .hdr-logo::after{content:'';display:inline-block;width:6px;height:6px;background:var(--red);border-radius:50%;margin-left:4px;vertical-align:top;margin-top:6px;box-shadow:0 0 8px rgba(204,30,43,0.6)}
   .hdr-sep{width:1px;height:42px;background:linear-gradient(180deg,transparent 0%,#3A4A5C 50%,transparent 100%);flex-shrink:0}
-  .hdr-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.8px;color:#fff;line-height:1.2}
+  .hdr-title{font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.8px;color:#fff;line-height:1.2}
   .hdr-sub{font-size:10.5px;color:#7B8B9E;margin-top:3px;letter-spacing:.3px;text-transform:uppercase;font-weight:500}
   .hdr-right{margin-left:auto;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-  .hdr-badge{background:linear-gradient(135deg,var(--red) 0%,#A01620 100%);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;padding:4px 10px;border-radius:3px;display:inline-block;box-shadow:0 2px 6px rgba(204,30,43,0.3);border:1px solid rgba(255,255,255,0.1)}
+  .hdr-badge{background:linear-gradient(135deg,var(--red) 0%,#A01620 100%);color:#fff;font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;padding:4px 10px;border-radius:3px;display:inline-block;box-shadow:0 2px 6px rgba(204,30,43,0.3);border:1px solid rgba(255,255,255,0.1)}
   .hdr-note{font-size:9.5px;color:#5B6B7E;letter-spacing:.5px;text-transform:uppercase;font-weight:500}
   .fbar{background:var(--steel);padding:0 8px;display:flex;align-items:stretch;overflow-x:auto;-webkit-overflow-scrolling:touch;gap:2px}
   .fbar::-webkit-scrollbar{display:none}
-  .ftab{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:.5px;text-transform:uppercase;padding:10px 12px;cursor:pointer;color:#B0BEC5;border-bottom:3px solid transparent;white-space:nowrap;user-select:none;flex-shrink:0}
+  .ftab{font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:700;font-size:12px;letter-spacing:.5px;text-transform:uppercase;padding:10px 12px;cursor:pointer;color:#B0BEC5;border-bottom:3px solid transparent;white-space:nowrap;user-select:none;flex-shrink:0}
   .ftab:hover{color:#fff}
   .ftab.a-all,.ftab.a-50,.ftab.a-75,.ftab.a-110,.ftab.a-falu,.ftab.a-ku,.ftab.a-cu,.ftab.a-upo,.ftab.a-ov,.ftab.a-skydd{color:#fff!important;border-bottom-color:var(--red)!important}
   .sbar{background:#2E3D4E;padding:8px 12px}
-  .sinput{width:100%;background:#fff;border:2px solid #5B7189;border-radius:6px;padding:10px 14px;color:#1A1A1A;font-size:14px;font-family:'Barlow',sans-serif;outline:none;box-shadow:0 1px 3px rgba(0,0,0,0.2);font-weight:500}
+  .sinput{width:100%;background:#fff;border:2px solid #5B7189;border-radius:6px;padding:10px 14px;color:#1A1A1A;font-size:14px;font-family:'Barlow',system-ui,sans-serif;outline:none;box-shadow:0 1px 3px rgba(0,0,0,0.2);font-weight:500}
   .sinput::placeholder{color:#6B7280;font-weight:400}
   .sinput:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(204,30,43,0.15)}
   .main{padding:12px 12px 40px}
@@ -46,21 +47,22 @@
   .tip strong{color:var(--dark)} .tip p+p{margin-top:4px}
   .section{margin-bottom:20px}
   .sec-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid var(--border)}
-  .sec-badge{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;padding:3px 10px;border-radius:4px;color:#fff;line-height:1;white-space:nowrap}
+  .sec-badge{font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:900;font-size:20px;padding:3px 10px;border-radius:4px;color:#fff;line-height:1;white-space:nowrap}
   .b50{background:var(--h50)}.b75{background:var(--h75)}.b110{background:var(--h110)}.bfalu{background:var(--hfalu)}.bku{background:var(--hku)}.bcu{background:var(--hcu)}.bupo{background:var(--hupo)}.bskydd{background:var(--hskydd)}
-  .sec-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.5px;color:var(--steel)}
+  .sec-title{font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.5px;color:var(--steel)}
   .sec-sub{font-size:10px;color:var(--muted);margin-left:auto}
   .tbl-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
   table{width:100%;border-collapse:collapse}
   thead tr{background:var(--steel)}
-  thead th{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:#B0BEC5;padding:7px 10px;text-align:left;white-space:nowrap}
+  thead th{font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:#B0BEC5;padding:7px 10px;text-align:left;white-space:nowrap}
   tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
   tbody tr:last-child{border-bottom:none}
   tbody tr:hover,tbody tr:active{background:#F4F7FB}
   tbody td{padding:8px 10px;vertical-align:middle}
-  tr.grp td{background:linear-gradient(90deg,#1B3A52 0%,#2C5273 100%);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1.2px;color:#FFD54F;padding:10px 14px;border-left:5px solid #FFC107;border-top:2px solid #0D2336;border-bottom:1px solid #0D2336;text-shadow:0 1px 2px rgba(0,0,0,0.4)}
+  tr.grp td{background:linear-gradient(90deg,#1B3A52 0%,#2C5273 100%);font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1.2px;color:#FFD54F;padding:10px 14px;border-left:5px solid #FFC107;border-top:2px solid #0D2336;border-bottom:1px solid #0D2336;text-shadow:0 1px 2px rgba(0,0,0,0.4)}
   tr.grp:hover,tr.grp:active{background:linear-gradient(90deg,#1B3A52 0%,#2C5273 100%)}
-  .nr{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:15px;color:var(--dark);white-space:nowrap;cursor:pointer;user-select:all;position:relative;padding-right:22px!important}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.nr{font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:900;font-size:15px;color:var(--dark);white-space:nowrap;cursor:pointer;user-select:all;position:relative;padding-right:22px!important}
 .nr::after{content:'⎘';position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:11px;opacity:0.25;font-family:sans-serif;transition:opacity 0.15s}
 .nr:hover::after{opacity:0.7}
 .nr:active{transform:scale(0.96)}
@@ -71,7 +73,7 @@
 #btt:active{transform:scale(0.92)}
   .nm{font-weight:600;font-size:12px;color:var(--dark)}
   .ds{font-size:11px;color:var(--muted);line-height:1.3}
-  .chip{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;padding:2px 7px;border-radius:3px;white-space:nowrap}
+  .chip{display:inline-block;font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:700;font-size:11px;padding:2px 7px;border-radius:3px;white-space:nowrap}
   .p50{background:var(--c50);color:var(--h50);border:1px solid #BAD4EA}
   .p75{background:var(--c75);color:var(--h75);border:1px solid #F5CBA7}
   .p110{background:var(--c110);color:var(--h110);border:1px solid #D7B8EA}
@@ -103,20 +105,20 @@
     <div class="hdr-note">2026 · dahl.se</div>
   </div>
 </div>
-<div class="fbar">
-  <div class="ftab a-all" onclick="f('all',this)">Alla</div>
-  <div class="ftab" onclick="f('50',this)">50mm</div>
-  <div class="ftab" onclick="f('75',this)">75mm</div>
-  <div class="ftab" onclick="f('110',this)">110mm</div>
-  <div class="ftab" onclick="f('falu',this)">Faluplast</div>
-  <div class="ftab" onclick="f('ku',this)">VATETTE</div>
-  <div class="ftab" onclick="f('cu',this)">Cu-rör</div>
-  <div class="ftab" onclick="f('upo',this)">Uponor RiR</div>
+<div class="fbar" role="navigation" aria-label="Filtrera produktkategori">
+  <div class="ftab a-all" onclick="f('all',this)" role="button" aria-pressed="true">Alla</div>
+  <div class="ftab" onclick="f('50',this)" role="button" aria-pressed="false">50mm</div>
+  <div class="ftab" onclick="f('75',this)" role="button" aria-pressed="false">75mm</div>
+  <div class="ftab" onclick="f('110',this)" role="button" aria-pressed="false">110mm</div>
+  <div class="ftab" onclick="f('falu',this)" role="button" aria-pressed="false">Faluplast</div>
+  <div class="ftab" onclick="f('ku',this)" role="button" aria-pressed="false">VATETTE</div>
+  <div class="ftab" onclick="f('cu',this)" role="button" aria-pressed="false">Cu-rör</div>
+  <div class="ftab" onclick="f('upo',this)" role="button" aria-pressed="false">Uponor RiR</div>
   <div class="ftab" onclick="f('skydd',this)">Skydd & Larm</div>
-  <div class="ftab" onclick="f('ov',this)">Övrigt</div>
+  <div class="ftab" onclick="f('ov',this)" role="button" aria-pressed="false">Övrigt</div>
 </div>
 <div class="sbar">
-  <input class="sinput" type="text" placeholder="🔍 Sök artikelnummer, namn, dimension..." oninput="s(this.value)">
+  <input class="sinput" type="text" placeholder="🔍 Sök artikelnummer, namn, dimension..." oninput="s(this.value)" aria-label="Sök i lathunden" autocomplete="off" spellcheck="false">
 </div>
 <div class="main">
   <div class="tip">
@@ -485,8 +487,8 @@ function f(dim,el){
   // Fix 6: återställ sökrutan när man byter flik
   var inp=document.querySelector('.sinput');
   if(inp && inp.value){inp.value='';s('');}
-  document.querySelectorAll('.ftab').forEach(t=>t.className='ftab');
-  el.className='ftab a-'+dim;
+  document.querySelectorAll('.ftab').forEach(t=>{t.className='ftab';t.setAttribute('aria-pressed','false');});
+  el.className='ftab a-'+dim;el.setAttribute('aria-pressed','true');
   _ids.forEach(function(id){
     var sec=document.getElementById(id);
     if(sec) sec.style.display=(dim==='all'||_dMap[dim]===id)?'':'none';
@@ -530,8 +532,14 @@ function s(q){
   });
 
   if(!q){
-    document.querySelectorAll('.ftab').forEach(t=>t.className='ftab');
-    document.querySelector('.ftab').className='ftab a-all';
+    document.querySelectorAll('.ftab').forEach(t=>{t.className='ftab';t.setAttribute('aria-pressed','false');});
+    const allTab=document.querySelector('.ftab');allTab.className='ftab a-all';allTab.setAttribute('aria-pressed','true');
+  }
+  // Uppdatera skärmläsar-status
+  const sr=document.getElementById('search-status');
+  if(sr){
+    const vis=document.querySelectorAll('tr[data-d]:not(.hidden)').length;
+    sr.textContent=q?vis+' artiklar hittade för "'+q+'"':'';
   }
 }
 
@@ -548,9 +556,15 @@ document.querySelectorAll('td.nr').forEach(td => {
         this.classList.remove('nr-copied');
       }, 1400);
     }).catch(()=>{
-      // Fallback om clipboard ej tillgänglig
-      const sel=window.getSelection(),range=document.createRange();
-      range.selectNodeContents(this);sel.removeAllRanges();sel.addRange(range);
+      // Fallback: textarea-trick för iOS Safari PWA
+      const ta=document.createElement('textarea');
+      ta.value=nr;ta.style.cssText='position:fixed;top:-9999px;left:-9999px;opacity:0';
+      document.body.appendChild(ta);ta.focus();ta.select();
+      try{document.execCommand('copy');}catch(e){}
+      document.body.removeChild(ta);
+      this.classList.add('nr-copied');
+      const orig2=this.textContent;this.textContent='✓ kopierat';
+      setTimeout(()=>{this.textContent=orig2;this.classList.remove('nr-copied');},1400);
     });
   });
 });
