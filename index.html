@@ -46,7 +46,8 @@
     .sinput{background:#1C2128;border-color:#2D3748;color:var(--dm-text)}
     .sinput::placeholder{color:#5B6B7A}
     .sinput:focus{border-color:var(--red)}
-    tbody tr:hover,tbody tr:active{background:#22303F}
+    tbody tr:nth-child(even){background:#212A35}
+  tbody tr:hover,tbody tr:active{background:#2A4060}
     .tbl-wrap{background:var(--dm-card);border-color:var(--dm-border)}
     thead tr{background:#161B22}
     thead th{color:#8899AA}
@@ -124,7 +125,8 @@
   /* FIX 2: radhöjd min 48px via padding */
   tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
   tbody tr:last-child{border-bottom:none}
-  tbody tr:hover,tbody tr:active{background:#F4F7FB}
+  tbody tr:nth-child(even){background:#F6F8FB}
+  tbody tr:hover,tbody tr:active{background:#DDEAF7}
   tbody td{padding:11px 10px;vertical-align:middle}
 
   /* FIX 4: förenklade grupprubrikier */
