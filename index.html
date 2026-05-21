@@ -253,6 +253,7 @@
   <div class="skeleton-bar" style="width:90%"></div>
   <div class="skeleton-bar" style="width:70%"></div>
 </div>
+<div id="search-results-wrap" style="display:none;padding:12px 12px 0"><div class="tbl-wrap"><table><thead><tr><th>Art.nr</th><th>Namn</th><th>Dim.</th><th>↗</th></tr></thead><tbody id="search-results-body"></tbody></table></div></div>
 <div class="main" id="main-content" style="display:none">
   <div class="tip">
     <p><strong>✅ Verifierade art.nr</strong> direkt från dahl.se (RSK-nr). Klicka <strong>Dahl</strong> för direktlänk.</p>
@@ -693,18 +694,8 @@ function s(q){
   });
   scored.sort(function(a,b){return b.score-a.score;});
 
-  // Skapa/hämta sökresultats-container
+  // Hämta sökresultats-container (finns statiskt i HTML)
   var wrap=document.getElementById('search-results-wrap');
-  if(!wrap){
-    wrap=document.createElement('div');
-    wrap.id='search-results-wrap';
-    wrap.innerHTML='<div class="tbl-wrap"><table><thead><tr>'
-      +'<th>Art.nr</th><th>Namn</th><th>Dim.</th><th>↗</th>'
-      +'</tr></thead><tbody id="search-results-body"></tbody></table></div>';
-    wrap.style.marginBottom='20px';
-    var mc=document.getElementById('main-content');
-    mc.insertBefore(wrap,mc.firstChild);
-  }
 
   // Fyll med sorterade kloner och registrera click-events på nr-celler
   var tbody=document.getElementById('search-results-body');
